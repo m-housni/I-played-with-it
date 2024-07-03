@@ -5,33 +5,35 @@ Symmetric difference is a binary operation, which means it operates on only two 
 
 Create a function that takes two or more arrays and returns an array of their symmetric difference. The returned array must contain only unique values (no duplicates).
 
-# Solution O(n2)
+# My Solution O(n2)
 
 ``` javascript
 function symdiff2( a1 , a2 ) {
     let res = [];
+    // O(n2)
     for(let i = 0; i < a1.length; i++) {
         if(a2.indexOf(a1[i]) === -1) {
             res.push(a1[i]);
         }
     }
+    // O(n2)
     for(let i = 0; i < a2.length; i++) {
         if(a1.indexOf(a2[i]) === -1) {
             res.push(a2[i]);
         }
     }
-    let resWithNoDupLicates = new Set()
+
+    // O(n)
+    let resWithNoDuplicates = new Set()
     for(let i = 0; i < res.length; i++) {
-        resWithNoDupLicates.add(res[i]);
+        resWithNoDuplicates.add(res[i]);
     }
     
-    return Array.from(resWithNoDupLicates);
+    return Array.from(resWithNoDuplicates);
 
 }
 
-function symdiff(...args) {
-    return args.reduce(symdiff)
+function sym(...args) {
+    return args.reduce(symdiff2)
 }
-
-sym([1, 2, 3], [5, 2, 1, 4]);
 ```
