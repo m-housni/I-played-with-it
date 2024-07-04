@@ -64,3 +64,37 @@ console.log(permAlone("a")); // 1
 console.log(permAlone("aabbcc")); // 120
 
 ```
+
+# Analysis
+
+The `permAlone` function calculates the number of permutations of a given string that do not have any repeating consecutive characters. Here's a detailed explanation of the function and its components:
+
+### Function Breakdown
+
+1. **Permutations Generator (`permutations` function):**
+   - **Purpose:** Generate all possible permutations of the input string.
+   - **Process:**
+     - Initialize an empty array `results` to store the permutations.
+     - Define a helper function `swap` to swap elements in an array.
+     - Define a recursive function `generate` that generates permutations using Heap's Algorithm.
+       - If `n` (length of the array) is 1, push a copy of the current array (`arr`) to `results`.
+       - Otherwise, recursively generate permutations by reducing `n`, swapping elements accordingly.
+     - Start the generation process by calling `generate` with the length of the input string and its character array.
+     - Convert each array in `results` back to a string and return the array of strings.
+
+2. **No Repeats Checker (`isNoRepeat` function):**
+   - **Purpose:** Check if a given string has no consecutive repeating characters.
+   - **Process:**
+     - Split the string into an array of characters.
+     - Loop through the array and check if any character is the same as the next one.
+     - Return `false` if a repeat is found; otherwise, return `true`.
+
+3. **Main Logic:**
+   - **Process:**
+     - Generate all permutations of the input string using the `permutations` function.
+     - Initialize a counter `ctr` to count valid permutations.
+     - Loop through each permutation and check if it has no repeating consecutive characters using `isNoRepeat`.
+     - If a permutation is valid, increment the counter `ctr`.
+     - Print each valid permutation (for debugging purposes).
+     - Print the final count of valid permutations.
+     - Return the count of valid permutations.
