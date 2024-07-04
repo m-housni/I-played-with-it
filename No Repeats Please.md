@@ -9,13 +9,15 @@ function permAlone(str) {
 
   const permutations = str => {
       const results = [];
-    
+
+      // helper function to swap elements of array
       function swap(arr, i, j) {
           const temp = arr[i];
           arr[i] = arr[j];
           arr[j] = temp;
       }
-    
+
+      // recursive function to generate permutations
       function generate(n, arr) {
           if (n === 1) {
               results.push(arr.slice());
