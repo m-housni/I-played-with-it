@@ -112,13 +112,13 @@ For an array of length 3 (e.g., `[1, 2, 3]`):
 
 So, the complexity is:
 
-\[ O(3 \cdot 3!) = O(18) \]
+\[ O(3x3!) = O(18) \]
 
 As \( n \) grows, the factorial term \( n! \) dominates the time complexity, making the problem computationally intensive for large \( n \).
 
 ### Conclusion
 
-Heap's Algorithm has a time complexity of \( O(n \cdot n!) \). This complexity is primarily due to the factorial growth of permutations that need to be generated and processed, making it suitable for small to moderately sized arrays but impractical for very large arrays due to the exponential growth in permutations.
+Heap's Algorithm has a time complexity of \( O(n x n!) \). This complexity is primarily due to the factorial growth of permutations that need to be generated and processed, making it suitable for small to moderately sized arrays but impractical for very large arrays due to the exponential growth in permutations.
 
 ### Summary
 
