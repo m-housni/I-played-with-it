@@ -40,3 +40,37 @@ function pairwise(arr, arg) {
 console.log(pairwise([1, 1, 1], 2)); // Example usage
 ```
 
+### Time Complexity Analysis
+
+1. **Outer Loop (Index `i`)**:
+   - This loop runs from `0` to `arr.length - 1`.
+   - In the worst case, it executes `n-1` times, where `n` is the length of the array.
+
+2. **Inner Loop (Index `j`)**:
+   - This loop runs from `i + 1` to `arr.length`.
+   - For each value of `i`, the inner loop runs approximately `n-i-1` times.
+
+3. **Condition Checks**:
+   - The condition `arr[i] + arr[j] === arg` is a constant-time check, i.e., `O(1)`.
+   - The condition `!used.has(i) && !used.has(j)` involves checking if `i` and `j` are in the `used` set.
+   - Each `has` check in a `Set` is `O(1)`, so `!used.has(i) && !used.has(j)` is `O(1)`.
+
+4. **Add Operation**:
+   - `used.add(i)` and `used.add(j)` are `O(1)` operations because `Set` operations like `add` and `has` have average time complexity of `O(1)`.
+
+### Combining the Time Complexities
+
+- **Outer Loop**: `O(n)`
+- **Inner Loop**: Each iteration of the outer loop runs the inner loop `n-i-1` times.
+  - The combined complexity of the nested loops is \( O(n) \times O(n) = O(n^2) \).
+
+- **Condition Checks**: Each condition check inside the inner loop is `O(1)`.
+
+### Overall Time Complexity
+
+The overall time complexity is determined by the nested loops since the condition checks and `Set` operations are all `O(1)`:
+
+\[ O(n) \times O(n) = O(n^2) \]
+
+Therefore, the time complexity of the provided `pairwise` function is **O(n^2)**. This is significantly better than the previous implementation with the `includes` method, which had a time complexity of **O(n^3)** due to the linear search in the `used` array.
+
