@@ -1,3 +1,5 @@
+# Commonly Used Algorithms in Software Engineering
+
 Here's an extensive list of commonly used algorithms in software engineering, organized by categories:
 
 ### 1. **Sorting Algorithms**
