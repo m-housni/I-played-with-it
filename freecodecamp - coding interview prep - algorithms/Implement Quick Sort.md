@@ -11,50 +11,50 @@ function quickSort(array) {
     return array;
   }
 
-  let pivotIndex = Math.floor(array.length / 2);
-  let pivot = array[pivotIndex];
-  let left = [];
-  let right = [];
+  let pivot = array[0];
+  let pivotOccurences = array.filter(e => e === pivot);
+  let left = array.filter(e => e < pivot);
+  let right = array.filter(e => e > pivot);
 
-  for (let i = 0; i < array.length; i++) {
-    if (i !== pivotIndex) {
-      if (array[i] < pivot) {
-        left.push(array[i]);
-      } else {
-        right.push(array[i]);
-      }
-    }
-  }
-
-  return [...quickSort(left), pivot, ...quickSort(right)];
+  return [...quickSort(left), ...pivotOccurences, ...quickSort(right)];
 }
 
-// Example usage:
-let array = [12, 11, 13, 5, 6];
-console.log(quickSort(array)); // Output: [5, 6, 11, 12, 13]
 ```
 
-### Explanation
+### Time Complexity Analysis
 
-1. **Pivot Selection**: Instead of always picking the first element as the pivot, we choose the middle element. This helps in cases where the array is already sorted or nearly sorted, improving performance.
-2. **Single Pass for Partitioning**: Instead of filtering the array three times, we use a single loop to partition the array into left and right sub-arrays based on the pivot.
-3. **Avoiding Extra Filters for Pivot Occurrences**: By choosing a unique pivot element and ensuring that the pivot itself is not included in the left or right sub-arrays, we avoid the need for extra filtering to handle multiple occurrences of the pivot.
+1. **Pivot Selection**:
+   - The pivot is selected as the first element of the array. This takes constant time, \(O(1)\).
 
-### Time Complexity
+2. **Partitioning**:
+   - The partitioning is done using the `filter` method, which iterates through the entire array three times:
+     - `array.filter(e => e === pivot)`
+     - `array.filter(e => e < pivot)`
+     - `array.filter(e => e > pivot)`
+   - Each of these operations takes \(O(n)\) time, where \(n\) is the length of the array. Thus, the partitioning step takes \(O(n) + O(n) + O(n) = O(3n) = O(n)\) time.
 
-The time complexity of quicksort is:
+3. **Recursion**:
+   - The recursive calls are made on the left and right sub-arrays. In the average and best cases, the pivot divides the array into two equal parts, leading to balanced recursion. In the worst case, one sub-array is empty, and the other contains the rest of the elements, leading to unbalanced recursion.
 
-1. **Best Case**: \(O(n \log n)\)
-   - This occurs when the pivot divides the array into two nearly equal halves, leading to balanced partitions.
+### Overall Time Complexity
 
-2. **Average Case**: \(O(n \log n)\)
-   - On average, quicksort performs well, dividing the array into reasonably balanced partitions.
+- **Best and Average Case**: 
+  - When the pivot splits the array into two equal (or nearly equal) parts, each partitioning step takes \(O(n)\), and there are \(O(\log n)\) levels of recursion. Thus, the overall time complexity is \(O(n \log n)\).
 
-3. **Worst Case**: \(O(n^2)\)
-   - This occurs when the pivot selection results in highly unbalanced partitions, such as when the smallest or largest element is consistently chosen as the pivot. This can be mitigated by choosing a good pivot strategy (like picking the median).
+- **Worst Case**: 
+  - When the pivot results in highly unbalanced splits (e.g., when the array is already sorted in ascending or descending order), one partition is empty, and the other has \(n - 1\) elements. This leads to \(n\) levels of recursion, with each level taking \(O(n)\) time. Thus, the overall time complexity is \(O(n^2)\).
 
 ### Space Complexity
 
-Quicksort has a space complexity of \(O(\log n)\) due to the recursion stack depth. However, the use of additional arrays for left and right sub-arrays increases the space complexity to \(O(n)\) in practice.
+- The space complexity is influenced by:
+  - **Recursion Stack**: In the worst case, the recursion stack can go as deep as \(n\) levels, leading to \(O(n)\) space complexity.
+  - **Additional Arrays**: The use of `filter` creates new arrays for `left`, `right`, and `pivotOccurences`, which require additional space proportional to the input size \(O(n)\).
 
-By optimizing the pivot selection and partitioning strategy, this quicksort implementation should perform efficiently for a wide range of input arrays.
+### Summary
+
+- **Best Case Time Complexity**: \(O(n \log n)\)
+- **Average Case Time Complexity**: \(O(n \log n)\)
+- **Worst Case Time Complexity**: \(O(n^2)\)
+- **Space Complexity**: \(O(n)\)
+
+The function performs well on average but can degrade to quadratic time complexity in the worst case due to poor pivot selection. Optimizing the pivot selection (e.g., using the median-of-three method) can help mitigate the worst-case scenario.
